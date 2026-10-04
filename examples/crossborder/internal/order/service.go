@@ -31,7 +31,7 @@ func (s *Service) Seed(o Order) {
 	s.orders[o.ID] = o
 }
 
-func (s *Service) Get(id string) (Order, bool) {
+func (s *Service) GetOrder(id string) (Order, bool) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 

@@ -8,12 +8,12 @@ import (
 )
 
 type CreateTransferRequest struct {
-	SKU            string
-	FromWarehouse  string
-	ToWarehouse    string
-	Quantity       int
-	DryRun         bool
-	IdempotencyKey string
+	SKU            string `json:"sku"`
+	FromWarehouse  string `json:"from_warehouse"`
+	ToWarehouse    string `json:"to_warehouse"`
+	Quantity       int    `json:"quantity"`
+	DryRun         bool   `json:"dry_run"`
+	IdempotencyKey string `json:"idempotency_key"`
 }
 
 type idempotencyRecord struct {
