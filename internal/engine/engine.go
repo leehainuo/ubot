@@ -3,7 +3,7 @@ package engine
 import (
 	"context"
 	"fmt"
-	"ubot/internal/conversation"
+	"ubot/internal/domain"
 
 	"github.com/cloudwego/eino/schema"
 )
@@ -13,7 +13,7 @@ type Generator interface {
 }
 
 type Platform interface {
-	LoadConversation(ctx context.Context, conversationID string) (*conversation.Conversation, error)
+	LoadConversation(ctx context.Context, conversationID string) (*domain.Conversation, error)
 	GetAgentSnapshotByVersion(ctx context.Context, agentVersionID string) (*Snapshot, error)
 }
 

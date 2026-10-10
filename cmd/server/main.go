@@ -8,17 +8,24 @@ import (
 	"os/signal"
 	"syscall"
 	"time"
+	"ubot/internal/api"
+	"ubot/internal/config"
+	"ubot/internal/platform/iam"
 )
 
 func main() {
+	cfg := config.Load()
 	mux := http.NewServeMux()
-	mux.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
-		w.WriteHeader(http.StatusOK)
-		_, _ = w.Write([]byte("ok"))
-	})
+
+	iam := iam.New(iam.NewMemoryStore(), cfg.JWT.Secret, cfg.JWT.Issuer)
+
+	api.RegisterRoutes(
+		mux,
+		iam,
+	)
 
 	server := &http.Server{
-		Addr:        ":8080",
+		Addr:        cfg.Addr,
 		Handler:     mux,
 		ReadTimeout: 5 * time.Second,
 	}
