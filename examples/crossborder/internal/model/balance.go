@@ -1,4 +1,4 @@
-package inventory
+package model
 
 type Balance struct {
 	WarehouseID string

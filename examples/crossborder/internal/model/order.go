@@ -1,13 +1,13 @@
-package order
+package model
 
-type Status string
+type OrderStatus string
 
 const (
-	StatusAwaitingShipment Status = "awaiting_shipment"
-	StatusCancelled        Status = "cancelled"
+	StatusAwaitingShipment OrderStatus = "awaiting_shipment"
+	StatusCancelled        OrderStatus = "cancelled"
 )
 
-type Item struct {
+type OrderItem struct {
 	SKU      string
 	Quantity int
 	Price    float64
@@ -18,8 +18,8 @@ type Order struct {
 	Market           string
 	Currency         string
 	Amount           float64
-	Status           Status
+	Status           OrderStatus
 	FulfillmentWH    string
 	CancellationOpen bool
-	Items            []Item
+	Items            []OrderItem
 }

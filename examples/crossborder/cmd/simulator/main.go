@@ -1,14 +1,14 @@
 package main
 
 import (
-	"crossborder/internal/httpapi"
-	"crossborder/internal/inventory"
-	"crossborder/internal/order"
 	"errors"
 	"log"
 	"net/http"
 	"os"
 	"time"
+
+	"crossborder/internal/handler"
+	"crossborder/internal/svc"
 )
 
 func main() {
@@ -17,14 +17,13 @@ func main() {
 		addr = ":8091"
 	}
 
-	handler := httpapi.New(
-		order.NewService(),
-		inventory.NewService(time.Now),
-	)
+	svcCtx := svc.NewServiceContext()
+	mux := http.NewServeMux()
+	handler.Init(mux, svcCtx)
 
 	server := &http.Server{
 		Addr:              addr,
-		Handler:           handler,
+		Handler:           mux,
 		ReadHeaderTimeout: 5 * time.Second,
 	}
 
